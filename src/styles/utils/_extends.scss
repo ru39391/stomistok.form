@@ -1,0 +1,24 @@
+%d-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+%d-flex-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+%d-flex-ai-center {
+  display: flex;
+  align-items: center;
+}
+
+%d-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%d-flex-centered {
+  @extend %d-flex-ai-center;
+  justify-content: center;
+}

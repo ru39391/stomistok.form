@@ -1,0 +1,147 @@
+@use "../utils/helpers" as *;
+
+.modal-overlay {
+  @include wh(100%);
+  @include pos(0, 0, fixed);
+  overflow: auto;
+  display: none;
+  z-index: 1060;
+  transition: all 0.3s ease;
+
+  &.is-visible {
+    display: block;
+    animation: show 0.5s;
+
+    .modal {
+      &:before {
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}
+
+.modal {
+  @include before;
+  @include pos(0);
+  @extend %d-flex-column;
+  @extend %d-flex-centered;
+  width: 100%;
+  min-height: 100vh;
+  padding: 16px;
+
+  &:before {
+    @include wh(100%);
+    @include pos(0);
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s ease 0.5s;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &.modal_type_video {
+    .modal-close {
+      top: 0;
+      padding: 8px;
+    }
+
+    .modal-wrapper {
+      padding: 34px 0 0;
+    }
+
+    .modal-container {
+      max-width: 100%;
+    }
+
+    .modal-content {
+      @include offset(0, 0);
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    .modal-container {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+  &.modal_type_plain {
+    .modal-wrapper {
+      max-width: 480px;
+      padding: 0;
+    }
+
+    .modal-content {
+      @include offset(0, 32px 24px 40px);
+      border-radius: 16px;
+      background-size: cover;
+    }
+
+    .modal-container {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+}
+
+.modal-wrapper {
+  @extend %d-flex-column;
+  @include zi(2);
+  width: 100%;
+  max-width: 720px;
+  padding: 80px 0 0;
+  overflow: hidden;
+}
+
+.modal-container {
+  @include mx(auto);
+  width: 100%;
+  max-width: 720px;
+}
+
+.modal-header {
+  @extend %d-flex-column;
+  @include pos(0);
+  @include wh(100%, 80px);
+  padding: 0 16px;
+  border-radius: 24px 24px 0 0;
+}
+
+.modal-header__container {
+  @extend %d-flex-column;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.modal-content {
+  padding: 54px 16px 0;
+  flex-grow: 1;
+  overflow-y: auto;
+
+  .modal-container {
+    @include zi(2);
+  }
+}
+
+.modal-footer {
+  padding: 24px 16px 40px;
+  border-radius: 0 0 24px 24px;
+}
+
+.modal-close {
+  @include zi(2);
+  @include pos(0);
+  right: 0;
+  left: auto;
+  padding: 16px;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

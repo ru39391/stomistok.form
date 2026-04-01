@@ -1,0 +1,71 @@
+@mixin before() {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+  }
+}
+
+@mixin wh($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin fw($width) {
+  flex: 0 0 $width;
+  max-width: $width;
+}
+
+@mixin pos($top, $left: $top, $pos: absolute) {
+  top: $top;
+  left: $left;
+  position: $pos;
+}
+
+@mixin fs-lh($fs, $lh) {
+  font-size: $fs;
+  line-height: $lh;
+};
+
+@mixin offset($m, $p: $m) {
+  margin: $m;
+  padding: $p;
+}
+
+@mixin mx($ml, $mr: $ml) {
+  margin-left: $ml;
+  margin-right: $mr;
+}
+
+@mixin px($pl, $pr: $pl) {
+  padding-left: $pl;
+  padding-right: $pr;
+}
+
+@mixin py($pt, $pb: $pt) {
+  padding-top: $pt;
+  padding-bottom: $pb;
+}
+
+@mixin zi($zi, $pos: relative) {
+  z-index: $zi;
+  position: $pos;
+}
+
+@mixin border($bw, $bc, $bs: solid) {
+  border: {
+    width: $bw;
+    color: $bc;
+    style: $bs;
+  }
+}
+
+@mixin object-fit($of: cover) {
+  @include wh(100%);
+  object-fit: $of;
+}
+
+@mixin color-white($opacity) {
+  color: rgba(255, 255, 255, $opacity);
+}
