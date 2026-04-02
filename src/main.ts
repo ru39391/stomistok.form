@@ -1,4 +1,4 @@
 import './styles/main.scss';
-import { init, initApp } from './scripts/app.ts';
+import { init } from './scripts/app.ts';
 
-initApp();
+init();

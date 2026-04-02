@@ -322,6 +322,7 @@ const serializeForm = (form: HTMLFormElement): FormData => new FormData(form);
  * Валидация и отправка формы
  */
 const submitForm = () => {
+  let isSubmitting = false;
   const {
     form,
     formContent: formContentSel,
@@ -357,19 +358,23 @@ const submitForm = () => {
 
     formNode.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      if (isSubmitting) {
+        return;
+      }
+
+      if (formNode.hasAttribute('data-submitting')) {
+        return;
+      }
+
       submitBtn.disabled = true;
+      isSubmitting = true;
+      formNode.setAttribute('data-submitting', 'true');
 
       const formData = serializeForm(formNode);
       const validate = validateForm(formNode);
       const { action, evt, ym: yaMetricaId } = formNode.dataset;
-      const values = Array.from(formData.entries()).reduce((acc, item) => {
-        const [key, value] = item;
-        const { dataset } = formNode.querySelector(
-          `[name="${key}"]`,
-        ) as HTMLInputElement;
-
-        return { ...acc, [dataset.name as string]: value };
-      }, {});
+      const body = Array.from(formData.entries()).reduce((acc, [key, value], index) => `${acc}${index === 0 ? '' : '&'}${key}=${value}`, ''); //({ ...acc, [key]: value })
 
       if (!validate) {
         console.error(ERROR_MESSAGES.formInvalid);
@@ -377,7 +382,11 @@ const submitForm = () => {
         try {
           const response = await fetch(`${SITE_API_URL}${action}`, {
             method: "POST",
-            body: JSON.stringify([values]),
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body
           });
 
           if (!response.ok) {
@@ -396,15 +405,18 @@ const submitForm = () => {
             formSuccess?.classList.remove(STATE_MOD.hidden);
             if(uri) window.location = uri;
             // @ts-expect-error
-            if(yaMetricaId) ym(Number(yaMetricaId), "reachGoal", evt);
+            if(yaMetricaId && ym) ym(Number(yaMetricaId), "reachGoal", evt);
           } else {
             throw new Error();
           }
         } catch (error) {
           console.error(error);
-          submitBtn.disabled = false;
           formFailure?.classList.remove(STATE_MOD.hidden);
           //formFailure.textContent = error as string;
+        } finally {
+          submitBtn.disabled = false;
+          isSubmitting = false;
+          formNode.removeAttribute('data-submitting');
         }
       }
     });

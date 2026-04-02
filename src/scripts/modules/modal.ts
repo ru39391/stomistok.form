@@ -1,4 +1,4 @@
-import Twig, { Template } from 'twig';
+import Twig, { type Template } from 'twig';
 import {
   STATE_MOD,
   TPL_URL,

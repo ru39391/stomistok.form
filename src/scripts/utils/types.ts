@@ -1,4 +1,4 @@
-import { Template } from 'twig';
+import { type Template } from 'twig';
 
 export type TCaptionOptions = {
   sel: string;

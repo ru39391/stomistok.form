@@ -1,4 +1,4 @@
-import Twig, { Template } from 'twig';
+import Twig, { type Template } from 'twig';
 import { submitForm } from './modules/forms';
 import Modal from './modules/modal';
 import { FORM_SELECTORS } from './utils/constants';
