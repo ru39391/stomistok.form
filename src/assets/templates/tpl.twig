@@ -4,7 +4,7 @@
 	<div class="popup popup_type_plain">
 		<div class="popup-wrapper">
 			<button class="popup-close js-modal-close" type="button">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="icon-fluid" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12.75 0.750003L0.75 12.75M12.75 12.75L0.750001 0.75" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
@@ -20,9 +20,9 @@
               и мы свяжемся с вами в ближайшее время
             </div>
 					</div>
-					<div class="form-title js-form-content-success is-hidden">Ваша заявка принята!</div>
-					<form class="form form_width_max" data-ym="100042851">
-						<div class="form-desc form-desc_type_error js-form-content-failure is-hidden">Не удалось отправить сообщение, повторите попытку позже.</div>
+					<div class="form-title js-form-content-success is-hidden">Спасибо! Мы перезвоним в ближайшее время</div>
+					<form class="form form_width_max js-form-content" data-action="/feedback" data-evt="call_me_back"><!--  data-ym="100042851" -->
+					  <div class="form-title form-title_type_error js-form-content-failure is-hidden">Ошибка отправки</div>
 						<fieldset class="form__fieldset">
 							<div class="form__item js-input-holder">
 								<input class="form__field js-input-field js-input-type-phone" type="tel" value="" name="popup__phone" data-name="phone" placeholder="+7 (999) 999-99-99">
@@ -35,10 +35,14 @@
 								<span class="form-error js-error-message"></span>
 							</div>
               <div class="form-toggler-row js-input-holder">
-                <input class="form-toggler form-toggler_type_checkbox js-input-checkbox" type="checkbox" id="popup__policy" checked="">
-                <label class="form__label form__label_fs_md" for="popup__policy">
-                  <span class="form-toggler-icon"></span>
-                  <span class="form-toggler-caption">Нажимая на кнопку я даю своё согласие на
+                <input class="form-toggler form-toggler_type_checkbox js-input-checkbox js-checkbox-required" type="checkbox" id="popup__policy" checked="">
+                <label class="form-toggler-label form__label_fs_md" for="popup__policy">
+                  <span class="form-toggler-icon">
+                    <svg class="icon-fluid" width="512" height="406" viewBox="0 0 512 406" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M504.219 4.88225C495.089 -2.64775 481.692 -1.30375 474.204 7.78325L190.483 352.28L36.4197 198.239C28.0787 189.898 14.5967 189.898 6.25575 198.239C-2.08525 206.58 -2.08525 220.062 6.25575 228.403L176.916 399.063C180.905 403.095 186.345 405.313 191.998 405.313C192.339 405.313 192.681 405.313 193.022 405.292C199.059 405.015 204.648 402.199 208.467 397.548L507.12 34.8962C514.608 25.7872 513.328 12.3692 504.219 4.88225Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  <span class="form-toggler-caption">Нажимая на кнопку, я даю своё согласие на
                     <a class="td-underline" href="privacy" target="_blank">обработку персональных данных</a>
                   </span>
                 </label>

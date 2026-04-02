@@ -1,3 +1,11 @@
+@use './mixins' as *;
+
 .color-brand {
   color: #00AFEF;
+}
+
+
+.icon-fluid {
+  @include object-fit();
+  pointer-events: none;
 }

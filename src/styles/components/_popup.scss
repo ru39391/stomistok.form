@@ -115,6 +115,7 @@
 .popup-content {
   padding: 54px 16px 0;
   flex-grow: 1;
+  align-self: stretch;
   overflow-y: auto;
 
   .popup-container {
@@ -132,7 +133,7 @@
   @extend %d-flex-column;
   @extend %d-flex-centered;
   border: 0;
-  padding: 0;
+  padding: 4px;
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
 }

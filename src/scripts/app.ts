@@ -1,5 +1,5 @@
 import Twig, { Template } from 'twig';
-//import { submitForm } from './modules/forms';
+import { submitForm } from './modules/forms';
 import Modal from './modules/modal';
 import { FORM_SELECTORS } from './utils/constants';
 
@@ -26,7 +26,7 @@ const fetchTemplate = async (): Promise<Template | undefined> => {
 }
 
 const init = () => {
-  //submitForm();
+  submitForm();
   new Modal({
     btnSel: '.js-modal-btn',
     overlayClass: 'modal-overlay',

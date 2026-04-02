@@ -15,6 +15,7 @@ const FORM_SELECTORS = {
   checkbox: '.js-input-checkbox',
   textarea: '.js-textarea',
   errorContent: '.js-error-message',
+  reqCheckbox: '.js-checkbox-required'
 }
 
 const INPUT_CLASSNAMES = {
