@@ -1,0 +1,102 @@
+@use "../utils/helpers" as *;
+
+.form-header {
+  @extend %d-flex-column;
+  align-items: center;
+  text-align: center;
+  gap: 8px 0;
+}
+
+.form-container {
+  @extend %d-flex-column;
+  gap: 80px 0;
+}
+
+.form-title {
+  @include fs-lh(30px,34px);
+
+  &.is-hidden {
+    display: none;
+  }
+}
+
+.form-desc {
+  @include fs-lh(18px,21px);
+  font-weight: 300;
+
+  &.form-desc_type_success {
+
+  }
+
+  &.form-desc_type_error {
+
+  }
+
+  &.is-hidden {
+    display: none;
+  }
+}
+
+.form-btn {
+  @include fs-lh(18px,21px);
+  padding: 16px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  background-color: #373D57;
+}
+
+.form-toggler-row {
+  .form__label {
+    @extend %d-flex-ai-center;
+    gap: 0 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
+
+.form-toggler {
+  @include wh(0);
+  position: absolute;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.form-toggler-icon {
+  @include fw(24px);
+  @include border(1px,#000);
+  height: 24px;
+}
+
+.form {
+  @extend %d-flex-column;
+  gap: 40px 0;
+}
+
+.form__fieldset {
+  @extend %d-flex-column;
+  gap: 16px 0;
+}
+
+.form__item {
+  @extend %d-flex-column;
+  gap: 8px 0;
+}
+
+.form__field {
+  @include border(1px,#000);
+  height: 46px;
+  padding: 12px 8px;
+  border-radius: 10px;
+
+  &:focus {
+    outline: 0;;
+  }
+}
+
+.form__label {
+  text-align: center;
+  margin-bottom: 0;
+}

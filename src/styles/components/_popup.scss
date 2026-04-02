@@ -1,26 +1,27 @@
 @use "../utils/helpers" as *;
 
-.modal-overlay {
+.popup-overlay {
   @include wh(100%);
   @include pos(0, 0, fixed);
   overflow: auto;
   display: none;
   z-index: 1060;
+  backdrop-filter: blur(5px);
   transition: all 0.3s ease;
 
   &.is-visible {
     display: block;
     animation: show 0.5s;
 
-    .modal {
+    .popup {
       &:before {
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(254, 254, 254, 0.06);
       }
     }
   }
 }
 
-.modal {
+.popup {
   @include before;
   @include pos(0);
   @extend %d-flex-column;
@@ -38,64 +39,66 @@
     background-color: rgba(0, 0, 0, 0);
   }
 
-  &.modal_type_video {
-    .modal-close {
+  &.popup_type_video {
+    .popup-close {
       top: 0;
       padding: 8px;
     }
 
-    .modal-wrapper {
+    .popup-wrapper {
       padding: 34px 0 0;
     }
 
-    .modal-container {
+    .popup-container {
       max-width: 100%;
     }
 
-    .modal-content {
+    .popup-content {
       @include offset(0, 0);
       background-color: rgba(0, 0, 0, 0);
     }
 
-    .modal-container {
+    .popup-container {
       background-color: rgba(0, 0, 0, 0);
     }
   }
 
-  &.modal_type_plain {
-    .modal-wrapper {
-      max-width: 480px;
+  &.popup_type_plain {
+    .popup-wrapper {
+      max-width: 436px;
+      gap: 8px 0;
+      align-items: flex-end;
+    }
+
+    .popup-content {
       padding: 0;
     }
 
-    .modal-content {
-      @include offset(0, 32px 24px 40px);
-      border-radius: 16px;
-      background-size: cover;
-    }
-
-    .modal-container {
+    .popup-container {
       background-color: rgba(0, 0, 0, 0);
     }
   }
 }
 
-.modal-wrapper {
+.popup-wrapper {
   @extend %d-flex-column;
   @include zi(2);
+  @include offset(0,24px);
+  @include border(1px,#000);
   width: 100%;
   max-width: 720px;
-  padding: 80px 0 0;
+  border-radius: 10px;
   overflow: hidden;
+  background-color: #fff;
 }
 
-.modal-container {
+.popup-container {
   @include mx(auto);
   width: 100%;
   max-width: 720px;
 }
 
-.modal-header {
+.popup-header {
   @extend %d-flex-column;
   @include pos(0);
   @include wh(100%, 80px);
@@ -103,35 +106,35 @@
   border-radius: 24px 24px 0 0;
 }
 
-.modal-header__container {
+.popup-header__container {
   @extend %d-flex-column;
   flex-grow: 1;
   justify-content: flex-end;
 }
 
-.modal-content {
+.popup-content {
   padding: 54px 16px 0;
   flex-grow: 1;
   overflow-y: auto;
 
-  .modal-container {
+  .popup-container {
     @include zi(2);
   }
 }
 
-.modal-footer {
+.popup-footer {
   padding: 24px 16px 40px;
   border-radius: 0 0 24px 24px;
 }
 
-.modal-close {
-  @include zi(2);
-  @include pos(0);
-  right: 0;
-  left: auto;
-  padding: 16px;
+.popup-close {
+  @include wh(24px);
+  @extend %d-flex-column;
+  @extend %d-flex-centered;
+  border: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
-  font-size: 40px;
 }
 
 @keyframes show {

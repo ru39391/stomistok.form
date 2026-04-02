@@ -1,41 +1,50 @@
-<button class="button js-modal-btn" data-target="form" data-title="Заказать проект" type="button">Заказать проект</button>
+<button class="button js-modal-btn" data-target="form" type="button">Заказать проект</button>
 
-<div id="form" class="modal-overlay">
-	<div class="modal modal_type_plain">
-		<div class="modal-wrapper">
-			<button class="modal-close js-modal-close" type="button">×</button>
-			<div class="modal-content">
-				<div class="modal-container form-container js-form">
+<div id="form" class="popup-overlay">
+	<div class="popup popup_type_plain">
+		<div class="popup-wrapper">
+			<button class="popup-close js-modal-close" type="button">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.75 0.750003L0.75 12.75M12.75 12.75L0.750001 0.75" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+			<div class="popup-content">
+				<div class="popup-container form-container js-form">
 					<div class="form-header js-form-header">
-						<div class="form-title js-form-title">Заказать проект</div>
-						<div class="form-desc">Заполните контактные данные для формирования программы обучения исходя из Ваших задач</div>
+						<div class="form-title">
+              <span class="d-block">Хотите <span class="color-brand">мы</span>
+              </span>вам <span class="color-brand">позвоним?</span>
+            </div>
+						<div class="form-desc">
+              <span class="d-block">Оставьте свой номер,</span>
+              и мы свяжемся с вами в ближайшее время
+            </div>
 					</div>
 					<div class="form-title js-form-content-success is-hidden">Ваша заявка принята!</div>
 					<form class="form form_width_max" data-ym="100042851">
 						<div class="form-desc form-desc_type_error js-form-content-failure is-hidden">Не удалось отправить сообщение, повторите попытку позже.</div>
-						<div class="form__item is-hidden js-input-holder">
-							<input class="js-input-title js-input-field js-input-type-default" type="hidden" value="Заказать проект" name="modal__form" data-name="form">
-						</div>
 						<fieldset class="form__fieldset">
-							<div class="form__item form__item_size_xl js-input-holder">
-								<input class="form__field js-input-field js-input-type-default" type="text" value="" name="modal__name" data-name="name" placeholder="Ваше имя">
+							<div class="form__item js-input-holder">
+								<input class="form__field js-input-field js-input-type-phone" type="tel" value="" name="popup__phone" data-name="phone" placeholder="+7 (999) 999-99-99">
+							  <label class="form__label">Телефон</label>
 								<span class="form-error js-error-message"></span>
 							</div>
-							<div class="form__item form__item_size_xl js-input-holder">
-								<input class="form__field js-input-field js-input-type-phone" type="tel" value="" name="modal__phone" data-name="phone" placeholder="+7 (999) 999-99-99">
+							<div class="form__item js-input-holder">
+								<input class="form__field js-input-field js-input-type-default" type="text" value="" name="popup__name" data-name="name" placeholder="Ваше имя">
+							  <label class="form__label">Имя Фамилия</label>
 								<span class="form-error js-error-message"></span>
 							</div>
+              <div class="form-toggler-row js-input-holder">
+                <input class="form-toggler form-toggler_type_checkbox js-input-checkbox" type="checkbox" id="popup__policy" checked="">
+                <label class="form__label form__label_fs_md" for="popup__policy">
+                  <span class="form-toggler-icon"></span>
+                  <span class="form-toggler-caption">Нажимая на кнопку я даю своё согласие на
+                    <a class="td-underline" href="privacy" target="_blank">обработку персональных данных</a>
+                  </span>
+                </label>
+              </div>
 						</fieldset>
-						<div class="form-toggler-row js-input-holder">
-							<input class="form-toggler form-toggler_type_checkbox js-input-checkbox" type="checkbox" id="modal__policy" checked="">
-							<label class="form__label form__label_fs_md" for="modal__policy">
-								<span class="form-toggler-icon"></span>
-								<span>Даю согласие на
-									<a class="td-underline" href="privacy" target="_blank">обработку персональных данных</a>
-								</span>
-							</label>
-						</div>
-						<button class="btn btn-plain btn-inverted btn-xl js-form-submit" type="submit">Заказать программу обучения</button>
+						<button class="form-btn js-form-submit" type="submit">Перезвоните мне</button>
 					</form>
 				</div>
 			</div>
