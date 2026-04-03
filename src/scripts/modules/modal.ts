@@ -17,12 +17,13 @@ class Modal {
   btnSel: string = '.js-modal-btn';
   btnCloseSel: string = '.js-modal-close';
   classMod: string = STATE_MOD.visible;
-  modalClass: string = 'modal';
-  overlayClass: string = 'modal-overlay';
+  modalClass: string = 'popup';
+  overlayClass: string = 'popup-overlay';
   modalOverlayClass: string = 'js-modal-overlay';
   modalOverlay: HTMLElement | null = null;
   btnClose: HTMLElement | null = null;
   modalBtns: HTMLElement[] = [];
+  popups: HTMLElement[] = [];
   isModalPlain: boolean = false;
 
   constructor(options: TModalOptions) {
@@ -39,6 +40,7 @@ class Modal {
     this.modalBtns = Array.from(document.querySelectorAll(this.btnSel));
 
     if (!this.modalBtns.length) {
+      this.revealModals();
       return;
     }
 
@@ -70,10 +72,34 @@ class Modal {
     if(input) input.value = caption;
   }
 
+  checkModalData(id: string, diff: number = 3): boolean {
+    const timeStamp = localStorage.getItem(id);
+
+    if(timeStamp === null) return !Boolean(timeStamp);
+
+    const currTimeStamp = Math.floor(Date.now() / 1000);
+
+    return Math.floor(Math.abs(currTimeStamp - Number(timeStamp)) / (1000 * 60 * 60 * 24)) >= diff;
+  }
+
+  setModalData(target: HTMLElement) {
+    const { dataset, id } = target;
+
+    if(!Number(dataset.timeout)) {
+      return;
+    }
+
+    const timeStamp = Math.floor(Date.now() / 1000);
+
+    localStorage.setItem(target.id, timeStamp.toString());
+  }
+
   hideModal(currentTarget: HTMLElement | null) {
     if(!currentTarget) {
       return;
     }
+
+    this.setModalData(currentTarget);
 
     [currentTarget, this.modalOverlay].forEach(
       (item) => {
@@ -259,6 +285,21 @@ class Modal {
     if(target) {
       this.openModal(target, title as string);
     }
+  }
+
+  revealModals() {
+    this.popups = [...Array.from(document.querySelectorAll(`.${this.overlayClass}`)) as HTMLElement[]].filter(({ dataset }) => Number(dataset.timeout) > 0);
+
+    this.popups.forEach(popup => {
+      const { dataset, id } = popup;
+      const isModalRevealed = this.checkModalData(id, Number(dataset.diff));
+
+      if(!isModalRevealed) return;
+
+      setTimeout(() => {
+        this.openModal(id, '');
+      }, Number(dataset.timeout));
+    });
   }
 
   bindEvents() {

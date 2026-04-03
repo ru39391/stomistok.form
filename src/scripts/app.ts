@@ -3,7 +3,7 @@ import { submitForm } from './modules/forms';
 import Modal from './modules/modal';
 import { FORM_SELECTORS } from './utils/constants';
 
-const renderData = (tpl: Template): Node[] => {
+const renderTemplate = (tpl: Template): Node[] => {
   const parser = new DOMParser();
 
   const { body } = parser.parseFromString(
@@ -25,17 +25,17 @@ const fetchTemplate = async (): Promise<Template | undefined> => {
   }
 }
 
-const init = () => {
+const initApp = () => {
   submitForm();
   new Modal({
     btnSel: '.js-modal-btn',
-    overlayClass: 'modal-overlay',
+    overlayClass: 'popup-overlay',
     titleSel: FORM_SELECTORS.formTitle,
     inputSel: FORM_SELECTORS.inputTitle
   });
 };
 
-const initApp = async () => {
+const renderData = async () => {
   const wrapper = document.querySelector<HTMLDivElement>('#app');
 
   [
@@ -52,16 +52,19 @@ const initApp = async () => {
 
   try {
     const tpl = await fetchTemplate();
-    const arr = renderData(tpl as Template);
+    const arr = renderTemplate(tpl as Template);
 
     arr.forEach(item => wrapper?.append(item));
-    init();
+    initApp();
   } catch(err) {
     console.error(err);
   }
 };
 
+const init = () => {
+  import.meta.env.VITE_APP_ENV === 'development' ? renderData() : initApp();
+};
+
 export {
-  init,
-  initApp
-}
+  init
+};
