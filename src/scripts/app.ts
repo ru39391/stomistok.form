@@ -26,13 +26,14 @@ const fetchTemplate = async (): Promise<Template | undefined> => {
 }
 
 const initApp = () => {
-  submitForm();
-  new Modal({
+  const modals = new Modal({
     btnSel: '.js-modal-btn',
     overlayClass: 'popup-overlay',
     titleSel: FORM_SELECTORS.formTitle,
     inputSel: FORM_SELECTORS.inputTitle
   });
+
+  submitForm(modals);
 };
 
 const renderData = async () => {

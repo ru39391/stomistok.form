@@ -1,4 +1,4 @@
-import Utils from "../utils";
+
 import {
   SITE_API_URL,
   STATE_MOD,
@@ -6,6 +6,8 @@ import {
   INPUT_CLASSNAMES,
   ERROR_MESSAGES,
 } from "../utils/constants";
+import type { TModal } from './modal';
+import Utils from "../utils";
 
 /**
  * Проверка необязательности заполнения поля
@@ -318,10 +320,42 @@ const validateForm = (form: HTMLFormElement): boolean => {
  */
 const serializeForm = (form: HTMLFormElement): FormData => new FormData(form);
 
+const hideModalForm = ({ modals, modal, form }: {
+  modals: TModal;
+  modal: TModal['modalOverlay'];
+  form: HTMLFormElement
+}) => {
+  if(!modal || modal.querySelector("form") !== form) return;
+
+  const { timeout } = modal.dataset;
+
+  setTimeout(() => {
+    modals.hideModal(modal);
+  }, Number(timeout));
+};
+
+const handleYMCounter = (ym: string, goal: string) => {
+    let attempts = 0;
+    const maxAttempts = 50;
+
+    const checkInterval = setInterval(() => {
+        attempts++;
+        //@ts-expect-error
+        if (window[ym] && typeof window[ym].reachGoal === 'function') {
+            clearInterval(checkInterval);
+            //@ts-expect-error
+            window[ym].reachGoal(goal);
+        } else if (attempts >= maxAttempts) {
+            clearInterval(checkInterval);
+            console.warn('Metrika не загрузилась');
+        }
+    }, 100);
+}
+
 /**
  * Валидация и отправка формы
  */
-const submitForm = () => {
+const submitForm = (modals: TModal) => {
   let isSubmitting = false;
   const {
     form,
@@ -352,6 +386,8 @@ const submitForm = () => {
       checkbox.addEventListener("change", () => {
         if (validateForm(formNode)) {
           submitBtn.disabled = false;
+          isSubmitting = false;
+          formNode.removeAttribute('data-submitting');
         }
       });
     });
@@ -373,7 +409,7 @@ const submitForm = () => {
 
       const formData = serializeForm(formNode);
       const validate = validateForm(formNode);
-      const { action, evt, ym: yaMetricaId } = formNode.dataset;
+      const { action, goal, ym } = formNode.dataset;
       const body = Array.from(formData.entries()).reduce((acc, [key, value], index) => `${acc}${index === 0 ? '' : '&'}${key}=${value}`, ''); //({ ...acc, [key]: value })
 
       if (!validate) {
@@ -403,9 +439,16 @@ const submitForm = () => {
             formHeader?.classList.add(STATE_MOD.hidden);
             formContent?.classList.add(STATE_MOD.hidden);
             formSuccess?.classList.remove(STATE_MOD.hidden);
+
+            hideModalForm({
+              modals,
+              modal: modals.modalOverlay,
+              form: e.target as HTMLFormElement
+            });
+
             if(uri) window.location = uri;
-            // @ts-expect-error
-            if(yaMetricaId && ym) ym(Number(yaMetricaId), "reachGoal", evt);
+
+            if(ym) handleYMCounter(ym, String(goal));
           } else {
             throw new Error();
           }

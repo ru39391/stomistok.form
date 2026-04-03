@@ -75,15 +75,15 @@ class Modal {
   checkModalData(id: string, diff: number = 3): boolean {
     const timeStamp = localStorage.getItem(id);
 
-    if(timeStamp === null) return !Boolean(timeStamp);
+    if(!timeStamp) return true;
 
     const currTimeStamp = Math.floor(Date.now() / 1000);
 
-    return Math.floor(Math.abs(currTimeStamp - Number(timeStamp)) / (1000 * 60 * 60 * 24)) >= diff;
+    return Math.floor(Math.abs(currTimeStamp - Number(timeStamp)) / (24 * 60 * 60)) >= diff;
   }
 
   setModalData(target: HTMLElement) {
-    const { dataset, id } = target;
+    const { dataset } = target;
 
     if(!Number(dataset.timeout)) {
       return;
@@ -308,3 +308,4 @@ class Modal {
 }
 
 export default Modal;
+export type TModal = Modal;
