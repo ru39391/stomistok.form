@@ -320,20 +320,6 @@ const validateForm = (form: HTMLFormElement): boolean => {
  */
 const serializeForm = (form: HTMLFormElement): FormData => new FormData(form);
 
-const hideModalForm = ({ modals, modal, form }: {
-  modals: TModal;
-  modal: TModal['modalOverlay'];
-  form: HTMLFormElement
-}) => {
-  if(!modal || modal.querySelector("form") !== form) return;
-
-  const { timeout } = modal.dataset;
-
-  setTimeout(() => {
-    modals.hideModal(modal);
-  }, Number(timeout));
-};
-
 const handleYMCounter = (ym: string, goal: string) => {
     let attempts = 0;
     const maxAttempts = 50;
@@ -410,7 +396,7 @@ const submitForm = (modals: TModal) => {
       const formData = serializeForm(formNode);
       const validate = validateForm(formNode);
       const { action, goal, ym } = formNode.dataset;
-      const body = Array.from(formData.entries()).reduce((acc, [key, value], index) => `${acc}${index === 0 ? '' : '&'}${key}=${value}`, ''); //({ ...acc, [key]: value })
+      const body = Array.from(formData.entries()).reduce((acc, [key, value], index) => `${acc}${index === 0 ? '' : '&'}${key}=${value}`, '');
 
       if (!validate) {
         console.error(ERROR_MESSAGES.formInvalid);
@@ -430,7 +416,7 @@ const submitForm = (modals: TModal) => {
           }
 
           const {
-            data: { uri },
+            data,
             success,
           } = await response.json();
 
@@ -440,13 +426,11 @@ const submitForm = (modals: TModal) => {
             formContent?.classList.add(STATE_MOD.hidden);
             formSuccess?.classList.remove(STATE_MOD.hidden);
 
-            hideModalForm({
-              modals,
-              modal: modals.modalOverlay,
-              form: e.target as HTMLFormElement
-            });
+            setTimeout(() => {
+              modals.hideModal(modals.modalOverlay);
+            }, 3000);
 
-            if(uri) window.location = uri;
+            if(data.uri) window.location = data.uri;
 
             if(ym) handleYMCounter(ym, String(goal));
           } else {

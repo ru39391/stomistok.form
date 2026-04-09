@@ -4,8 +4,8 @@
 	<div class="popup popup_type_plain">
 		<div class="popup-wrapper">
 			<button class="popup-close js-modal-close" type="button">
-        <svg class="icon-fluid" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.75 0.750003L0.75 12.75M12.75 12.75L0.750001 0.75" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+        <svg class="icon-fluid" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.75 0.750005L0.75 23.75M23.75 23.75L0.750001 0.75" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
 			<div class="popup-content">
@@ -20,7 +20,11 @@
               и мы свяжемся с вами в ближайшее время
             </div>
 					</div>
-					<div class="form-title js-form-content-success is-hidden">Спасибо! Мы перезвоним в ближайшее время</div>
+					<div class="form-title form-title_type_subtitle js-form-content-success is-hidden">
+            Спасибо!
+            <span class="color-brand d-block">Мы свяжемся с Вами</span>
+            в ближайшее время.
+          </div>
 					<form class="form form_width_max js-form-content" data-action="/feedback" data-evt="call_me_back"><!--  data-ym="100042851" -->
 					  <div class="form-title form-title_type_error js-form-content-failure is-hidden">Ошибка отправки</div>
 						<fieldset class="form__fieldset">
@@ -30,7 +34,7 @@
 								<span class="form-error js-error-message"></span>
 							</div>
 							<div class="form__item js-input-holder">
-								<input class="form__field js-input-field js-input-type-default" type="text" value="" name="popup__name" data-name="name" placeholder="Ваше имя">
+								<input class="form__field" type="text" value="" name="popup__name" data-name="name" placeholder="Ваше имя">
 							  <label class="form__label">Имя Фамилия</label>
 								<span class="form-error js-error-message"></span>
 							</div>

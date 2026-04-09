@@ -39,8 +39,9 @@ class Modal {
     this.overlayClass = overlayClass;
     this.modalBtns = Array.from(document.querySelectorAll(this.btnSel));
 
+    this.revealModals();
+
     if (!this.modalBtns.length) {
-      this.revealModals();
       return;
     }
 
@@ -72,14 +73,14 @@ class Modal {
     if(input) input.value = caption;
   }
 
-  checkModalData(id: string, diff: number = 3): boolean {
+  checkModalData(id: string, diff: number = 5): boolean {
     const timeStamp = localStorage.getItem(id);
 
     if(!timeStamp) return true;
 
     const currTimeStamp = Math.floor(Date.now() / 1000);
 
-    return Math.floor(Math.abs(currTimeStamp - Number(timeStamp)) / (24 * 60 * 60)) >= diff;
+    return Math.floor(Math.abs(currTimeStamp - Number(timeStamp)) / 60) >= diff;
   }
 
   setModalData(target: HTMLElement) {
@@ -122,7 +123,7 @@ class Modal {
       currentTarget: event.currentTarget as HTMLElement,
     };
 
-    if(target.parentElement === currentTarget || target === this.btnClose) {
+    if(target === this.btnClose) { //target.parentElement === currentTarget ||
       this.hideModal(currentTarget);
     }
   }

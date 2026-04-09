@@ -28,6 +28,11 @@
   &.form-title_type_error {
     color: #f00;
   }
+
+  &.form-title_type_subtitle {
+    @include fs-lh(20px,23px);
+    margin: 0 0 40px;
+  }
 }
 
 .form-desc {
