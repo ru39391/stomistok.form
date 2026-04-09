@@ -195,9 +195,11 @@ const validateSelect = (select: HTMLSelectElement): boolean => {
  * Валидация чекбоксов
  */
 const validateCheckbox = (input: HTMLInputElement): boolean => {
-  handleInputHolder(input, input.checked);
+  const isChecked = input.checked;
 
-  return input.checked;
+  handleInputHolder(input, !isChecked);
+
+  return !isChecked;
 };
 
 /**
