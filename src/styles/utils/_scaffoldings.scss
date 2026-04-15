@@ -1,3 +1,4 @@
+@use './extends' as *;
 @use './mixins' as *;
 
 .color-brand {
@@ -7,5 +8,27 @@
 
 .icon-fluid {
   @include object-fit();
+  pointer-events: none;
+}
+
+.bottom__btn {
+  cursor: pointer;
+
+  &.bottom__btn_display_flex {
+    @extend %d-flex-ai-center;
+    gap: 0 8px;
+    border: 0;
+    padding-top: 0;
+    padding-left: 0;
+    background-color: rgba(0,0,0,0);
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.bottom__btn-icon,
+.bottom__btn-capion {
   pointer-events: none;
 }

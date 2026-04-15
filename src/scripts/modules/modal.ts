@@ -25,13 +25,19 @@ class Modal {
   modalBtns: HTMLElement[] = [];
   popups: HTMLElement[] = [];
   isModalPlain: boolean = false;
+  handleOpen: ((item: HTMLElement) => void) | null = null;
 
-  constructor(options: TModalOptions) {
+  constructor(options: TModalOptions<HTMLElement>) {
     this.init(options);
   }
 
-  init(options: TModalOptions) {
-    const { btnSel, overlayClass, titleSel, inputSel } = options;
+  init(options: TModalOptions<HTMLElement>) {
+    const {
+      btnSel,
+      overlayClass,
+      titleSel,
+      inputSel
+    } = options;
 
     this.titleSel = titleSel;
     this.inputSel = inputSel;
@@ -40,6 +46,8 @@ class Modal {
     this.modalBtns = Array.from(document.querySelectorAll(this.btnSel));
 
     this.revealModals();
+
+    if (options.handleOpen) this.handleOpen = options.handleOpen;
 
     if (!this.modalBtns.length) {
       return;
@@ -259,6 +267,10 @@ class Modal {
     this.modalOverlay?.classList.add(this.classMod);
     this.modalOverlay?.addEventListener('click', (this.closeModal as EventListener).bind(this));
     document.body.style.overflow = 'hidden';
+
+    if(this.handleOpen) {
+      this.handleOpen(this.modalOverlay as HTMLElement);
+    }
   }
 
   showModal(event: MouseEvent) {

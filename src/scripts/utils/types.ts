@@ -25,9 +25,10 @@ export type TProjectData = {
   list: string[];
 };
 
-export type TModalOptions = {
+export type TModalOptions<T> = {
   btnSel: string;
   overlayClass: string;
   titleSel: string;
   inputSel: string;
+  handleOpen: ((data: T) => void) | null;
 };

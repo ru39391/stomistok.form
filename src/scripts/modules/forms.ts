@@ -302,7 +302,7 @@ const validateForm = (form: HTMLFormElement): boolean => {
   });
 
   checkboxArr.forEach((input) => {
-    validFieldsStatus.push(validateCheckbox(input));
+    validFieldsStatus.push(!validateCheckbox(input));
   });
 
   if (textarea) {
@@ -351,6 +351,7 @@ const submitForm = (modals: TModal) => {
     formSuccess: formSuccessSel,
     formFailure: formFailureSel,
     formHeader: formHeaderSel,
+    input: formInputSel,
     submitBtn: submitBtnSel,
     reqCheckbox: reqCheckboxSel
   } = FORM_SELECTORS;
@@ -368,10 +369,11 @@ const submitForm = (modals: TModal) => {
     const formFailure = form.querySelector(formFailureSel) as HTMLElement;
     const formHeader = form.querySelector(formHeaderSel) as HTMLElement;
     const formCheckboxList = Array.from(form.querySelectorAll(reqCheckboxSel)) as HTMLElement[];
+    const formInputList = Array.from(form.querySelectorAll(formInputSel)) as HTMLElement[];
     const formNode = formEl ? formEl : form;
 
-    formCheckboxList.forEach(checkbox => {
-      checkbox.addEventListener("change", () => {
+    [...formCheckboxList, ...formInputList].forEach(input => {
+      input.addEventListener("change", () => {
         if (validateForm(formNode)) {
           submitBtn.disabled = false;
           isSubmitting = false;
@@ -455,4 +457,23 @@ const submitForm = (modals: TModal) => {
   });
 };
 
-export { submitForm };
+const showFormItems = (wrapper: HTMLElement) => {
+  if(!wrapper) return;
+
+  const {
+    formHeader: formHeaderSel,
+    formContent: formContentSel,
+    formSuccess: formContentSuccessSel,
+  } = FORM_SELECTORS;
+  const formHeader = wrapper.querySelector(formHeaderSel);
+  const formContent = wrapper.querySelector(formContentSel);
+  const formSuccess = wrapper.querySelector(formContentSuccessSel);
+
+  if(!formSuccess?.classList.contains(STATE_MOD.hidden)) {
+    formHeader?.classList.remove(STATE_MOD.hidden);
+    formContent?.classList.remove(STATE_MOD.hidden)
+    formSuccess?.classList.add(STATE_MOD.hidden);
+  }
+}
+
+export { submitForm, showFormItems };

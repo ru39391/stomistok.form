@@ -1,5 +1,5 @@
 import Twig, { type Template } from 'twig';
-import { submitForm } from './modules/forms';
+import { showFormItems, submitForm } from './modules/forms';
 import Modal from './modules/modal';
 import { FORM_SELECTORS } from './utils/constants';
 
@@ -30,7 +30,8 @@ const initApp = () => {
     btnSel: '.js-modal-btn',
     overlayClass: 'popup-overlay',
     titleSel: FORM_SELECTORS.formTitle,
-    inputSel: FORM_SELECTORS.inputTitle
+    inputSel: FORM_SELECTORS.inputTitle,
+    handleOpen: (item) => showFormItems(item)
   });
 
   submitForm(modals);
